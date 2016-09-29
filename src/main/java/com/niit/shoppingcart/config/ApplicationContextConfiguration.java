@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.shoppingcart.model.Cart;
 import com.niit.shoppingcart.model.Category;
 import com.niit.shoppingcart.model.Product;
 import com.niit.shoppingcart.model.Supplier;
@@ -30,8 +31,8 @@ public class ApplicationContextConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
 		dataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
-		dataSource.setUsername("enocharavind");
-		dataSource.setPassword("hcone99592");
+		dataSource.setUsername("sa");
+		dataSource.setPassword("");
 		return dataSource;
 	}
 
@@ -53,6 +54,7 @@ public class ApplicationContextConfiguration {
 		sessionBuilder.addAnnotatedClasses(Product.class);
 		sessionBuilder.addAnnotatedClasses(Supplier.class);
 		sessionBuilder.addAnnotatedClasses(UserDetails.class);
+		sessionBuilder.addAnnotatedClasses(Cart.class);
 		return sessionBuilder.buildSessionFactory();
 	}
 
