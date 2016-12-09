@@ -2,9 +2,7 @@ package com.niit.shoppingcart.config;
 
 import java.util.Properties;
 
-
 import javax.sql.DataSource;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +13,12 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.shoppingcart.model.BillingAddress;
+import com.niit.shoppingcart.model.CardDetail;
 import com.niit.shoppingcart.model.Cart;
 import com.niit.shoppingcart.model.Category;
 import com.niit.shoppingcart.model.Product;
+import com.niit.shoppingcart.model.ShippingAddress;
 import com.niit.shoppingcart.model.Supplier;
 import com.niit.shoppingcart.model.UserDetails;
 
@@ -51,10 +52,13 @@ public class ApplicationContextConfiguration {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sessionBuilder.addProperties(getHibernateProperties());
 		sessionBuilder.addAnnotatedClasses(Category.class);
+		sessionBuilder.addAnnotatedClasses(Cart.class);
 		sessionBuilder.addAnnotatedClasses(Product.class);
 		sessionBuilder.addAnnotatedClasses(Supplier.class);
-		sessionBuilder.addAnnotatedClasses(UserDetails.class);
-		sessionBuilder.addAnnotatedClasses(Cart.class);
+		sessionBuilder.addAnnotatedClasses(UserDetails.class);	
+		sessionBuilder.addAnnotatedClasses(ShippingAddress.class);	
+		sessionBuilder.addAnnotatedClasses(BillingAddress.class);	
+		sessionBuilder.addAnnotatedClasses(CardDetail.class);	
 		return sessionBuilder.buildSessionFactory();
 	}
 

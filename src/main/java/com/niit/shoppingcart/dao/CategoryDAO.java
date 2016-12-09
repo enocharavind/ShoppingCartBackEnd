@@ -4,24 +4,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.niit.shoppingcart.modal.Category;
+import com.niit.shoppingcart.model.Category;
 
-
-
-
-
-@Repository
-  public interface CategoryDAO {
-
-	// declare curd operation
+public interface CategoryDAO {
 	public boolean save(Category category);
-	
-	public  boolean update(Category category);
-	
-	public  boolean delete(Category category);
-	
-	public Category get(String id);
-	
+
+	public boolean update(Category category);
+
+	public boolean delete(Category category);
+
+	public Category get(String cat_id);
+
 	public List<Category> list();
 	
+	public Category getByName(String name);
 }

@@ -30,18 +30,18 @@ public class TestCaseSupplier {
 		supplier = (Supplier)context.getBean("supplier");
 	}
 	
+	
 	@Test
 	public void supplierAddTestCase()
 	{
-		supplier.setId("SUP001");
-		supplier.setName("Relaince");
-		supplier.setAddress("chandanagar");
+		supplier.setId("hhasd");
+		supplier.setName("sun");
+		supplier.setAddress("this macro");
 		assertEquals(supplierDAO.save(supplier),true);
 	}
 	
 	
-	/*
-	@Test
+	/*@Test
 	public void supplierListTestCase()
 	{
 		List<Supplier> list = supplierDAO.list();
@@ -51,25 +51,24 @@ public class TestCaseSupplier {
 	
 	/*@Test
 	public void deleteTestCase(){
-		supplier.setSup_id("MOB_002");
+		supplier.setId("MOB_002");
 		assertEquals(supplierDAO.delete(supplier),true);
 	}*/
 	
 /*	@Test
 	public void updateTestCase(){
-		supplier.setSup_id("SUP_001");
-		supplier.setSup_name("Micro");
-		supplier.setSup_address("this is micro");
+		supplier.setId("SUP_001");
+		supplier.setName("Micro");
+		supplier.setAddress("this is micro");
 		assertEquals(supplierDAO.update(supplier),true);
 	}*/
-/*
-	@Test
+	
+/*@Test
 	public void getSupplierTestCase(){
 	supplier=supplierDAO.get("SUP_001");
 	System.out.println(supplier.getSup_address());
 	assertEquals(supplier.getName(), "Micro technologies");
-	}
-	*/
+	}*/
 	
 	
 	

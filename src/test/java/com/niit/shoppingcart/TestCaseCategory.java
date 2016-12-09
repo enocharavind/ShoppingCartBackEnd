@@ -38,17 +38,17 @@ public class TestCaseCategory {
 		context.refresh();
 		categoryDAO = (CategoryDAO)context.getBean("categoryDAO");
 		category = (Category)context.getBean("category");
-	
+	product = (Product)context.getBean("product");
+	;
 	}
 	
 	@Test
 	public void categoryAddTestCase()
 	{
-	
-			category.setId("CAT001");
-			category.setName("Electronics");
-			category.setDescription("this is description");
-		assertEquals(categoryDAO.save(category),true);
+			category.setId("1");
+			category.setName("mob11");
+			category.setDescription("ads11a");
+		assertEquals(categoryDAO.save(category), true);
 	}
 	
 	

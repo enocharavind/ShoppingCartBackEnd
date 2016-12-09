@@ -3,71 +3,114 @@ package com.niit.shoppingcart.dao;
 import java.util.List;
 
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.shoppingcart.dao.CartDAO;
 import com.niit.shoppingcart.model.Cart;
 
-
 @Repository("cartDAO")
+@EnableTransactionManagement
 public class CartDAOImpl implements CartDAO {
-
-
 	
-	
-	
-	@Autowired
-	SessionFactory sessionFactory;
+@Autowired
+private SessionFactory sessionFactory;
 
-	public CartDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	@Transactional
+	public List<Cart> list() {
+		@SuppressWarnings("unchecked")
+		List<Cart> list = (List<Cart>) sessionFactory.getCurrentSession().createCriteria(Cart.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return list;
 	}
 
 	@Transactional
-	public void saveOrUpdate(Cart cart) {
-		sessionFactory.getCurrentSession().saveOrUpdate(cart);
+	public boolean save(Cart cart) {
+try {
+	sessionFactory.getCurrentSession().save(cart);
+	return true;
+} catch (HibernateException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	return false;
+}
 	}
 
 	@Transactional
-	public void delete(String cartId) {
-		sessionFactory.getCurrentSession().delete(cartId);
-
+	public boolean delete(Cart cart) {
+		
+		//cart.setUserID(id);
+		try {
+			sessionFactory.getCurrentSession().delete(cart);
+			return true;
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
+	
 	@Transactional
-	public Cart getCartByCustomerId(String customerId) {
-		String hql = "from Cart where customerId=" + "'" + customerId + "'";
+	public String update(Cart cart) {
+		
+		//cart.setUserID(id);
+		try {
+			sessionFactory.getCurrentSession().update(cart);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return e.getMessage();
+
+		}
+		return null;
+	} 
+	
+	@Transactional
+	public Cart getProduct(String pro_id) {
+		String hql = "from Cart where id ="+"'"+pro_id+"'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		List<Cart> customerList = query.getResultList();
-		if (customerList != null && !customerList.isEmpty())
-			return customerList.get(0);
+
+		@SuppressWarnings("unchecked")
+		List<Cart> list = (List<Cart>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		}
 
 		return null;
 	}
 
 	@Transactional
-	public List<Cart> listCart() {
-		String hql = "from Cart";
+	public List<Cart> getByUser(String id) {
+		String hql = "from Cart where userID=" + "'" + id + "' ";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		List<Cart> listOfCarts = query.getResultList();
-		return listOfCarts;
 
+		@SuppressWarnings("unchecked")
+		List<Cart> list = (List<Cart>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list;
+		}
+
+		return null;
 	}
-
-/*	@Transactional
-	public List<OrderedItems> listOrderedItems(String customerId) {
-		String hql = "from OrderedItems where customerId="+"'"+customerId+"'";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		List<OrderedItems> listOfOrderedItems = query.getResultList();
-		return listOfOrderedItems;
-	}*/
-
 	
+	@Transactional
+	public Cart getCart(String cart_id) {
+		String hql = "from Cart where id=" + "'" + cart_id + "' ";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
+		@SuppressWarnings("unchecked")
+		List<Cart> list = (List<Cart>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
 }

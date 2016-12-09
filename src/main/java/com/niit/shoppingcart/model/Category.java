@@ -59,9 +59,11 @@ public class Category {
 		this.description = description;
 	}
 
-	
-	
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
+	
 }
 
 

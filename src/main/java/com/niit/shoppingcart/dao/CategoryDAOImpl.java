@@ -2,85 +2,96 @@ package com.niit.shoppingcart.dao;
 
 import java.util.List;
 
+
+
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.shoppingcart.modal.Category;
+import com.niit.shoppingcart.model.Category;
 
-@EnableTransactionManagement
 @Repository("categoryDAO")
-
-
-public class CategoryDAOImpl  implements CategoryDAO{
+@EnableTransactionManagement
+public class CategoryDAOImpl implements CategoryDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public CategoryDAOImpl(SessionFactory sessionFactory){
-		this.sessionFactory=sessionFactory;
+	@Transactional
+	public boolean save(Category category) {
+		
+		try {
+			sessionFactory.getCurrentSession().save(category);
+			return true;
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	@Transactional
-public boolean save(Category category){
-	try {
-		sessionFactory.getCurrentSession().save(category);
-		return true;
-	} catch (HibernateException e) {
-		e.printStackTrace();
-		return false;
-	}
-}
-	@Transactional
-	public  boolean update(Category category){
+	public boolean update(Category category) {
 		try {
 			sessionFactory.getCurrentSession().update(category);
 			return true;
 		} catch (HibernateException e) {
-            e.printStackTrace();
-            return false;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
-		
 	}
 	@Transactional
-	public  boolean delete(Category category){
+	public boolean delete(Category category) {
 		try {
 			sessionFactory.getCurrentSession().delete(category);
 			return true;
 		} catch (HibernateException e) {
-		e.printStackTrace();
-		return false;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 	@Transactional
-	@SuppressWarnings("unchecked")
-	public Category get(String id){
-		//select * from category where id='101'// we giving qotations because  we have taken varchar
-		String hql=" from Categroy where id =" + " ' " + id + " ' ";
-		Query query=sessionFactory.getCurrentSession().createQuery(hql);
-		List<Category> list=query.list();
-		 if(list==null){
-			 return null;
-		 }
-		 else
-		 {
-			 return list.get(0);
-		 }
+	public Category get(String cat_id) {
+		String  hql = " from Category where id ="+"'"+cat_id+"'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		List<Category> list = query.list();
+		if(list == null || list.isEmpty())
+		{
+			return null;
+		}
+		else
+		{
+			return list.get(0);
+		}
 	}
-	
 	@Transactional
-	@SuppressWarnings("unchecked")
-	public List<Category> list(){
-		
-		String hql ="from Category";
-		
-		Query query =sessionFactory.getCurrentSession().createQuery(hql);
+	public List<Category> list() {
+		String hql = "from Category";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		return query.list();
 	}
 	
+	@Transactional
+	public Category getByName(String cat_name){
+		String hql= " from Category where cat_name ="+"'"+cat_name+"'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		List<Category> list = (List<Category>) query.list();
+		if(list != null && !list.isEmpty())
+		{
+			return list.get(0);
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
 
 }

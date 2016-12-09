@@ -4,20 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.niit.shoppingcart.modal.Product;
+import com.niit.shoppingcart.model.Product;
 
 @Repository
 public interface ProductDAO {
-
-	// declare curd operation
 	public boolean save(Product product);
-	
-	public  boolean update(Product product);
-	
-	public  boolean delete(Product product);
-	
-	public Product get(String id);
-	
+
+	public boolean update(Product product);
+
+	public boolean delete(Product product);
+
+	public Product get(String pro_id);
+
 	public List<Product> list();
-	
 }

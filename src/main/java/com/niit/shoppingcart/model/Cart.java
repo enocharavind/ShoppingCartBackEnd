@@ -1,109 +1,111 @@
 package com.niit.shoppingcart.model;
 
+
 import java.io.Serializable;
 import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
 
 @Entity
+@Table
 @Component
 public class Cart implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-	private String cartId;
+	public Cart(){
+		this.cart_id="CART"+UUID.randomUUID().toString().substring(24).toUpperCase();
+	}
 	
-	private String customerId;
-	private double grandTotal;
-	private int noOfProducts;
+    private static final long serialVersionUID = 1L;
+ 
+	@Id
+	private String cart_id;	
+	private String productID;
+	private String userID;
+	private String productName;
+	private int productPrice;
+	private int quantity;
 
-	public String getCartId() {
-		return cartId;
+	private int total;
+	
+	public int getTotal() {
+		return total;
 	}
 
-	public void setCartId(String cartId) {
-		this.cartId = cartId;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
-	public String getCustomerId() {
-		return customerId;
+	@OneToOne
+	@JoinColumn(name="userID",  insertable=false, nullable=false, updatable= false)
+	private UserDetails userDetails;
+	
+	public UserDetails getUserDetails() {
+		return userDetails;
 	}
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	
+
+	public String getProductID() {
+		return productID;
+	}
+
+	public void setProductID(String productID) {
+		this.productID = productID;
 	}
 
 
-	public double getGrandTotal() {
-		return grandTotal;
+
+	public String getCart_id() {
+		return cart_id;
+		}
+
+	public void setCart_id(String cart_id) {
+		this.cart_id = cart_id;
 	}
 
-	public void setGrandTotal(double grandTotal) {
-		this.grandTotal = grandTotal;
+	public String getProductName() {
+		return productName;
 	}
 
-	public int getNoOfProducts() {
-		return noOfProducts;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public void setNoOfProducts(int noOfProducts) {
-		this.noOfProducts = noOfProducts;
+	public int getProductPrice() {
+		return productPrice;
 	}
 
-	public Cart() {
-		this.cartId ="CART"+ UUID.randomUUID().toString().substring(24).toUpperCase();
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
 
-	/*
-	 * private String cartId; private Map<String, CartItem> cartItems; private
-	 * double grandTotal;
-	 * 
-	 * public String getCartId() { return cartId; }
-	 * 
-	 * public void setCartId(String cartId) { this.cartId = cartId; }
-	 * 
-	 * public Map<String, CartItem> getCartItems() { return cartItems; }
-	 * 
-	 * public void setCartItems(Map<String, CartItem> cartItems) {
-	 * this.cartItems = cartItems; }
-	 * 
-	 * public double getGrandTotal() { return grandTotal; }
-	 * 
-	 * public void setGrandTotal(double grandTotal) { this.grandTotal =
-	 * grandTotal; }
-	 * 
-	 * private Cart() { cartItems = new HashMap<String, CartItem>(); grandTotal
-	 * = 0;
-	 * 
-	 * }
-	 * 
-	 * public Cart(String cartId){ this(); this.cartId= cartId; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * // Cart Methods
-	 * 
-	 * public void addCartItems(CartItem cartItem) { String
-	 * productId=cartItem.getProduct().getProductId();
-	 * 
-	 * if(cartItems.containsKey(productId)) { CartItem
-	 * existingCartItem=cartItems.get(productId);
-	 * existingCartItem.setQuantity(existingCartItem.getQuantity()+cartItem.
-	 * getQuantity()); cartItems.put(productId, existingCartItem); }
-	 * 
-	 * updateGrandTotal(); }
-	 * 
-	 * public void removeCartItem(CartItem cartItem) { String productId=
-	 * cartItem.getProduct().getProductId(); cartItems.remove(productId);
-	 * updateGrandTotal(); }
-	 * 
-	 * public void updateGrandTotal(){ grandTotal=0; for(CartItem cartItem :
-	 * cartItems.values()) { grandTotal=grandTotal+cartItem.getTotalPrice(); } }
-	 */
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+
+
+	
+	
 }

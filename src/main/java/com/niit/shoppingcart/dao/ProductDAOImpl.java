@@ -8,7 +8,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.query.Query;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -21,7 +20,7 @@ import com.niit.shoppingcart.model.Product;
 public class ProductDAOImpl implements ProductDAO {
 	
 
-
+		
 	
 	
 	@Autowired
@@ -62,18 +61,16 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 	}
 	@Transactional
-	public Product get(String id) {
-		String  hql = " from Product where id ="+"'"+id+"'";
+	public Product get(String pro_id) {
+		String  hql = " from Product where id ="+"'"+pro_id+"'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		List<Product> list = query.list();
-		if(list == null||list.isEmpty())
-		{
-			return null;
+List<Product> listProduct = (List<Product>) query.list();
+		
+		if (listProduct != null && !listProduct.isEmpty()) {
+			return listProduct.get(0);
 		}
-		else
-		{
-			return list.get(0);
-		}
+		
+		return null;
 	}
 	@Transactional
 	public List<Product> list() {

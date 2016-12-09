@@ -2,6 +2,7 @@ package com.niit.shoppingcart;
 
 import static org.junit.Assert.*;
 
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,9 +12,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.niit.shoppingcart.dao.CartDAO;
 import com.niit.shoppingcart.dao.CategoryDAO;
 import com.niit.shoppingcart.dao.ProductDAO;
 import com.niit.shoppingcart.dao.SupplierDAO;
+import com.niit.shoppingcart.model.Cart;
 import com.niit.shoppingcart.model.Category;
 import com.niit.shoppingcart.model.Product;
 import com.niit.shoppingcart.model.Supplier;
@@ -38,6 +41,9 @@ Supplier supplier;
 	@Autowired
 	Category category ; 
 	
+	@Autowired
+	CartDAO cartDAO;
+	
 	AnnotationConfigApplicationContext context;
 	
 	@Before
@@ -51,42 +57,42 @@ Supplier supplier;
 	}
 	
 	
-	@Test
+	/*@Test
 	public void productAddTestCase()
 	{
-	/*Category category=new Category();
-		category.setCat_id("CAT002");
-		category.setCat_name("mobile");
-		category.setCat_description("MOBILES");
+	Category category=new Category();
+		category.setId("CAT002");
+		category.setName("mobile");
+		category.setDescription("MOBILES");
 		
 		
 		Supplier supplier=new Supplier();
-		supplier.setSup_id("SUP002");
-		supplier.setSup_name("RELAINCE");
-		supplier.setSup_address("hyd");
+		supplier.setId("SUP002");
+		supplier.setName("RELAINCE");
+		supplier.setAddress("hyd");
 	
-		Product product=new Product();*/
+		Product product=new Product();
 		
 		
-		product.setId("PRO001");
-		product.setName("samsung");
-		product.setDescription("hisdbj");
-		product.setPrice("10000"); 
-		product.setCategory_id("CAT001");
-		product.setSupplier_id("SUP001");
+		product.setId("PRO1");
+		product.setName("birthday");
+		product.setDescription("birthday gifts");
+		product.setPrice("1500"); 
+		product.setCategory_id("cat1");
+		product.setSupplier_id("sup1");
 		 //productDAO.save(product);
 		 assertEquals(productDAO.save(product),true);
-		/*(category.getProducts()).add(product);
+		(category.getProducts()).add(product);
 		
 		
 		(supplier.getProducts()).add(product);
 	
 		
 		 categoryDAO.save(category);
-		supplierDAO.save(supplier);*/
+		supplierDAO.save(supplier);
 	
 	}
-
+*/
 	/*
 	
 	@Test
@@ -120,9 +126,4 @@ Supplier supplier;
 	}
 	*/
 	
-	
-	
-	
-	
-
-}
+	}

@@ -1,15 +1,12 @@
 package com.niit.shoppingcart.model;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table
@@ -20,10 +17,20 @@ public class Product {
 	private String id;
 	private String name;
 	private String description;
-	private String price;
+	private int price;
+
+
 	private String category_id;
 		private String supplier_id;
+		@Transient
+		private MultipartFile image;
 		
+		public MultipartFile getImage() {
+			return image;
+		}
+		public void setImage(MultipartFile image) {
+			this.image = image;
+		}
 		public String getCategory_id() {
 		return category_id;
 	}
@@ -80,14 +87,12 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
-	
 
+	   
 }
